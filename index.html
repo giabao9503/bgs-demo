@@ -3,22 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="HandheldFriendly" content="true">
     <title>Neil's Foundry - Artisan Furniture</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500&display=swap">
-    <link rel="preload" href="main.css" as="style">
-    <link rel="preload" href="main.js" as="script">
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
     <!-- Hero Section with Menu -->
     <nav class="menu-bar">
         <div class="logo" id="logo">NEIL'S FOUNDRY</div>
-        <div class="mobile-menu-toggle">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
         <ul class="main-menu">
             <li>
                 <a href="#">LIVING</a>
@@ -66,14 +58,6 @@
                 </ul>
             </li>
         </ul>
-        <div class="search-cta">
-            <button class="search-button">
-                <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M15.5 15H14.71L14.43 14.73C15.41 13.59 16 12.11 16 10.5C16 6.91 13.09 4 9.5 4C5.91 4 3 6.91 3 10.5C3 14.09 5.91 17 9.5 17C11.11 17 12.59 16.41 13.73 15.43L14 15.71V16.5L19 21.49L20.49 20L15.5 15Z"/>
-                </svg>
-            </button>
-            <input type="text" class="search-box" placeholder="Search...">
-        </div>
     </nav>
     <section class="hero-section"></section>
 
@@ -134,14 +118,12 @@
                     <p>Neil products will highlight even the smallest details in your home, from the kitchen to the living room to the bathroom. Discover a unique combination of modern and classic styles on elegant cabinet handles and homeware.</p>
                 </div>
             </div>
-
             <div class="product-card">
                 <h3 class="product-title">Door Hardware</h3>
                 <div class="product-desc">
                     <p>Dive into our diverse collection, where you'll find beautifully crafted door handles, classic to contemporary door knobs, upscale premium accessories, and all the vital door essentials to complete your space.</p>
                 </div>
             </div>
-
             <div class="product-card">
                 <h3 class="product-title">Design Inspiration</h3>
                 <div class="product-desc">
@@ -149,6 +131,16 @@
                 </div>
             </div>
         </div>
+        <!-- Section hiển thị sản phẩm động, đặt sau các card tĩnh -->
+        <section id="product-list-section" style="display: none;">
+            <div class="collection-header">
+                <h1 id="product-list-title"></h1>
+                <p id="product-list-desc"></p>
+            </div>
+            <div class="container-parent">
+                <div id="product-list-container" class="product-container"></div>
+            </div>
+        </section>
     </main>
     
     <!-- Products Collection -->
@@ -224,7 +216,7 @@
     </section>
 
     <!-- Product Detail Overlay -->
-    <div id="productOverlay" class="product-overlay">
+    <div id="productOverlay" class="product-overlay" style="display:none;">
         <span class="close-btn" onclick="closeDetail()">&times;</span>
         <div class="product-detail-content">
             <div class="detail-image" id="detailImage"></div>
@@ -232,30 +224,44 @@
                 <h2 id="detailName">Product Name</h2>
                 <p class="detail-price" id="detailPrice">$0 USD</p>
                 <p class="detail-desc" id="detailDesc">Product description...</p>
-                <ul class="detail-specs" id="detailSpecs">
-                    <li>Material: ...</li>
-                    <li>Dimensions: ...</li>
-                    <li>Features: ...</li>
-                </ul>
+                <ul class="detail-specs" id="detailSpecs"></ul>
                 <button class="add-to-cart-btn">Add to Cart</button>
             </div>
         </div>
     </div>
-
+    
     <!-- Contact Form -->
-    <div class="contact-form">
-        <h3>CONTACT US</h3>
-        <form>
-            <input type="text" placeholder="Name" required>
-            <input type="email" placeholder="Email" required>
-            <textarea placeholder="Your message" required></textarea>
-            <button type="submit">SUBMIT</button>
-        </form>
-    </div>
+    <section class="contact-section">
+    <h2>CONTEACT US</h2>
 
+    <form class="contact-form">
+        <div class="form-left">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Your Name">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Your Email">
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone number</label>
+                <input type="tel" id="phone" name="phone" placeholder="Your Phone Number">
+            </div>
+        </div>
+
+        <div class="form-right">
+            <div class="form-group message-group">
+                <label for="messenger">Your messenger</label>
+                <textarea id="messenger" name="messenger" rows="8" placeholder="Type your message here"></textarea>
+            </div>
+        </div>
+
+        <button type="submit" class="submit-button">SUBMIT</button>
+    </form>
+</section>
     <!-- Back to Top Button -->
     <div class="back-top" id="backTop">↑</div>
-
     <script defer src="main.js"></script>
 </body>
 </html>
