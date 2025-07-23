@@ -81,7 +81,7 @@ button {
 
 /* Dropdown Menu */
 .dropdown-menu {
-    display: none;
+    display: none; /* Mặc định ẩn, chỉ hiển thị khi hover trên desktop hoặc active trên mobile */
     position: absolute;
     top: 100%; /* Position directly below the parent li */
     left: 0;
@@ -90,10 +90,19 @@ button {
     min-width: 150px;
     z-index: 110; /* Ensure it's above the menu bar */
     padding: 10px 0; /* Add padding to dropdown */
+    /* Transition for dropdown on mobile - will be overridden by media query */
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+    opacity: 0;
+    pointer-events: none;
 }
 
 .main-menu li:hover .dropdown-menu {
-    display: block;
+    display: block; /* Hiện trên desktop khi hover */
+    max-height: 500px; /* Một giá trị đủ lớn để chứa tất cả mục con */
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .dropdown-menu li {
@@ -111,19 +120,24 @@ button {
     background-color: #f9f9f9;
 }
 
-/* Cart Icon */
+/* Cart Icon & Header Icons Container */
+.header-icons {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Khoảng cách giữa cart icon và hamburger */
+}
+
 .cart-icon {
     display: flex;
     align-items: center;
     cursor: pointer;
     position: relative;
-    margin-left: 20px; /* Space from menu items */
 }
 
-.cart-icon svg {
-    width: 28px; /* Slightly larger icon */
-    height: 28px;
-    stroke: #6e4e29;
+/* Sử dụng Font Awesome icon */
+.cart-icon .fas {
+    font-size: 28px; /* Kích thước icon */
+    color: #6e4e29; /* Màu icon */
 }
 
 .cart-count {
@@ -196,7 +210,7 @@ button {
     display: flex;
     justify-content: space-around;
     padding: 60px 50px;
-    background-color: #fff; /* Giữ nguyên nền tổng thể của container */
+    background-color: #fff;
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
     flex-wrap: wrap;
@@ -207,10 +221,10 @@ button {
     flex: 1;
     min-width: 280px;
     text-align: center;
-    background-color: #e3e5e7; /* Đặt nền trắng rõ ràng cho mỗi ô (nếu nền container là màu khác) */
-    padding: 30px; /* Tăng padding để nội dung có không gian hơn */
-    border-radius: 8px; /* Bo tròn các góc */
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08); /* Thêm bóng đổ nhẹ */
+    background-color: #e3e5e7;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -220,8 +234,8 @@ button {
     color: #6e4e29;
 }
 .location-section:hover {
-    transform: translateY(-5px); /* Nhấc nhẹ lên khi di chuột qua */
-    box-shadow: 0 8px 20px rgba(0,0,0,0.12); /* Tăng bóng đổ khi hover */
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
 }
 
 .address, .hours, .contact-info {
@@ -251,19 +265,21 @@ button {
     background-color: #f8f5f0;
 }
 
+/* ẢNH HƯỞNG ĐẾN DESKTOP: Bố cục mặc định cho desktop của Product Types */
 .products-row {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 40px;
-    justify-content: center;
+    display: grid; /* Dùng Grid cho desktop */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* 300px là kích thước tối thiểu, sẽ tự động căn chỉnh */
+    gap: 40px; /* Khoảng cách giữa các thẻ trên desktop */
+    justify-content: center; /* Đảm bảo các phần tử được căn giữa trong container nếu không đủ để lấp đầy */
     max-width: 1200px;
     margin: 0 auto;
+    padding: 0; /* Loại bỏ padding ngang ở đây, để media query xử lý */
 }
 
 .product-card {
     background-color: #e3e5e7;
     padding: 30px;
-    box-shadow: 0 4px 10px rgba(245, 235, 95, 0.05);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     text-align: center;
     border-radius: 8px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -283,8 +299,8 @@ button {
     color: #6e4e29;
     transition: color 0.3s ease;
 }
-.product-card:hover .product-title { /* Thay đổi màu tiêu đề khi hover */
-    color: #5a4022; /* Màu đậm hơn một chút hoặc màu nhấn khác */
+.product-card:hover .product-title {
+    color: #5a4022;
 }
 
 .product-card .product-desc p {
@@ -327,12 +343,14 @@ button {
     width: 100%;
 }
 
+/* ẢNH HƯỞNG ĐẾN DESKTOP: Bố cục mặc định cho desktop của Minimal Products */
 .product-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
+    display: grid; /* Dùng Grid cho desktop */
+    grid-template-columns: repeat(5, 1fr);
+    gap: 30px; /* Khoảng cách giữa các thẻ trên desktop */
     max-width: 1200px; /* Max width for the grid */
     width: 100%; /* Ensure it takes full width of container-parent */
+    padding: 0; /* Loại bỏ padding ngang ở đây, để media query xử lý */
 }
 
 .product-card-mini {
@@ -363,6 +381,10 @@ button {
 .product-info {
     padding: 15px;
     text-align: center;
+    flex-grow: 1; /* Cho phép phần info giãn nở để đẩy footer xuống dưới cùng */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .product-info h3 {
@@ -557,6 +579,8 @@ button {
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    flex-direction: row; /* Default: row on larger screens */
+    align-items: flex-start; /* Align items to the top */
 }
 
 .form-left, .form-right {
@@ -565,10 +589,13 @@ button {
     display: flex;
     flex-direction: column;
     gap: 25px;
+    /* >>> THÊM DÒNG NÀY ĐỂ CĂN TRÁI CÁC MỤC BÊN TRONG CỘT form-right TRÊN DESKTOP <<< */
+    align-items: flex-start; /* Quan trọng: Căn trái các phần tử con */
 }
 
 .form-group {
     text-align: left;
+    width: 100%;
 }
 
 .form-group label {
@@ -591,6 +618,7 @@ button {
     font-family: 'Montserrat', sans-serif;
     color: #333;
     background-color: #fcfcfc;
+    box-sizing: border-box; /* Quan trọng: padding và border không làm tăng width */
 }
 
 .form-group input::placeholder,
@@ -606,12 +634,15 @@ button {
 }
 
 .form-group.message-group {
-    flex-grow: 1; /* Allow textarea column to grow */
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .form-group textarea {
-    resize: vertical; /* Allow vertical resize only */
+    resize: vertical;
     min-height: 120px;
+    flex-grow: 1;
 }
 
 .submit-button {
@@ -623,14 +654,183 @@ button {
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    width: auto; /* Fit content */
-    margin-top: 20px;
-    align-self: flex-end; /* Align to the right in flex container */
+    width: auto;
+    /* >>> ĐỔI margin-top TỪ 20px THÀNH 25px ĐỂ ĐỒNG BỘ KHOẢNG CÁCH <<< */
+    margin-top: 25px;
+    /* >>> XÓA HOẶC BÌNH LUẬN DÒNG align-self NÀY ĐI <<< */
+    /* align-self: flex-end; */
 }
 
 .submit-button:hover {
     background-color: #5a4022;
 }
+
+/* Thêm CSS cho phần .about-section và .image-gallery TỪ ĐÂY */
+.about-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 50px;
+    background-color: #fff;
+    gap: 60px; /* Khoảng cách giữa ảnh và văn bản */
+    flex-wrap: wrap; /* Cho phép wrap trên màn hình nhỏ hơn */
+}
+
+.about-image-wrapper {
+    flex-shrink: 0; /* Ngăn ảnh co lại */
+    width: 450px; /* Kích thước cố định cho ảnh trên desktop */
+    height: 450px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.about-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.about-content {
+    flex-basis: 50%; /* Chiếm 50% không gian */
+    max-width: 600px; /* Max width để đảm bảo dễ đọc */
+    text-align: left;
+}
+
+.about-content h2 {
+    font-size: 3em;
+    color: #6e4e29;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.about-content p {
+    font-size: 1.1em;
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+.about-content ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 30px;
+}
+
+.about-content ul li {
+    font-size: 1em;
+    color: #333;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.about-content ul li::before {
+    content: '\2713'; /* Dấu tick unicode */
+    color: #6e4e29;
+    font-weight: bold;
+    margin-right: 10px;
+    font-size: 1.2em;
+}
+
+.about-button {
+    background-color: #6e4e29;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    display: inline-block; /* Để button không chiếm toàn bộ chiều rộng */
+}
+
+.about-button:hover {
+    background-color: #5a4022;
+}
+
+/* Image Gallery (Full Width with Three Columns) */
+.image-gallery {
+    padding: 60px 0; /* Padding trên dưới, 0 ngang để ảnh sát biên */
+    background-color: #f8f5f0;
+    text-align: center;
+}
+
+.image-gallery h2 {
+    font-size: 3em;
+    color: #6e4e29;
+    margin-bottom: 50px;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 cột bằng nhau */
+    gap: 20px; /* Khoảng cách giữa các ảnh */
+    max-width: 1500px; /* Max width cho toàn bộ gallery */
+    margin: 0 auto; /* Canh giữa */
+    padding: 0 20px; /* Padding ngang để ảnh không sát biên quá */
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 300px; /* Chiều cao cố định cho ảnh */
+    object-fit: cover; /* Đảm bảo ảnh được cắt mà không bị méo */
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.12);
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05); /* Phóng to nhẹ ảnh khi hover */
+}
+
+.gallery-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); /* Lớp phủ màu đen trong suốt */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.gallery-item:hover .gallery-overlay {
+    opacity: 1;
+}
+
+.gallery-title {
+    color: white;
+    font-size: 1.8em;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
+.gallery-description {
+    color: #f0f0f0;
+    font-size: 1em;
+    text-align: center;
+    padding: 0 15px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
 
 /* Back to Top Button */
 .back-top {
@@ -650,7 +850,7 @@ button {
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     transition: background-color 0.3s ease, transform 0.3s ease;
     z-index: 99;
-    display: none; /* Hidden by default */
+    display: none; /* Hidden by default, JS will show/hide */
 }
 
 .back-top:hover {
@@ -849,22 +1049,71 @@ button {
 
 
 /* Responsive Design */
+
+/* Biểu tượng Hamburger (mặc định ẩn trên desktop, hiện trên mobile) */
+.hamburger-menu {
+    display: none; /* Mặc định ẩn trên desktop */
+    font-size: 2em; /* Kích thước icon */
+    cursor: pointer;
+    color: #6e4e29; /* Màu của icon hamburger */
+    padding: 5px; /* Tăng khu vực chạm */
+}
+
+/* ẨN DROPDOWN MENU TRÊN MOBILE (sẽ được JS điều khiển) */
 @media (max-width: 992px) {
     .menu-bar {
         padding: 10px 30px;
     }
 
-    .main-menu {
-        gap: 20px;
-    }
-
+    /* Các phần khác không thay đổi ở đây cho 992px */
     .introduction-section, .location-container, .gallery-container, .minimal-products, .contact-section {
         padding: 60px 30px;
     }
 
-    .products-row, .product-container {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    /* Đảm bảo bố cục sản phẩm trên tablet vẫn theo mong muốn desktop (hoặc tùy chỉnh nhẹ) */
+    /* Product Types Gallery: giữ grid 2-3 cột trên tablet */
+    .products-row {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* 2-3 cột trên tablet */
         gap: 30px;
+    }
+    /* Minimal Products Section: giữ grid 3-4 cột trên tablet */
+    .product-container {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* 3-4 cột trên tablet */
+        gap: 20px;
+    }
+
+    /* ABOUT SECTION ON TABLET (992px) */
+    .about-section {
+        flex-direction: column; /* Chuyển thành stack trên tablet */
+        padding: 60px 30px;
+        gap: 40px;
+    }
+    .about-image-wrapper {
+        width: 350px; /* Nhỏ hơn một chút trên tablet */
+        height: 350px;
+    }
+    .about-content {
+        flex-basis: auto; /* Xóa flex-basis để nó tự điều chỉnh */
+        max-width: 100%; /* Chiếm toàn bộ chiều rộng có thể */
+        text-align: center; /* Căn giữa văn bản */
+    }
+    .about-content ul {
+        text-align: left; /* Giữ các mục li căn trái */
+        margin: 0 auto 30px auto; /* Canh giữa ul */
+        max-width: 400px; /* Đặt max-width để trông gọn hơn */
+    }
+
+    /* IMAGE GALLERY ON TABLET (992px) */
+    .image-gallery {
+        padding: 50px 0;
+    }
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 cột trên tablet */
+        gap: 15px;
+        padding: 0 15px; /* Giảm padding ngang */
+    }
+    .gallery-item img {
+        height: 250px; /* Giảm chiều cao ảnh trên tablet */
     }
 
     .product-detail-content {
@@ -872,7 +1121,7 @@ button {
         padding: 30px;
     }
 
-    .product-detail-content > div {
+    .product-detail-content > div { /* Áp dụng cho phần chứa ảnh và text detail */
         flex-direction: column;
         align-items: center;
         gap: 20px;
@@ -888,71 +1137,180 @@ button {
         right: 15px;
     }
 
+    /* FORM CONTACT TRÊN TABLET (992px trở xuống) */
+    .contact-form {
+        flex-direction: column; /* Chuyển thành 1 cột trên tablet */
+        gap: 25px; /* Khoảng cách giữa các nhóm */
+        padding: 30px;
+        align-items: stretch; /* Đảm bảo các cột con giãn hết chiều rộng */
+    }
     .form-left, .form-right {
         min-width: unset;
         width: 100%; /* Make them stack */
-    }
-
-    .contact-form {
-        padding: 30px;
+        gap: 15px; /* Khoảng cách giữa các input/textarea */
     }
 
     .submit-button {
         align-self: center; /* Center the button when stacked */
         width: 100%;
         max-width: 300px;
+        margin-top: 15px; /* Điều chỉnh margin-top */
     }
 }
 
 @media (max-width: 768px) {
+    /* HIỂN THỊ HAMBURGER */
+    .hamburger-menu {
+        display: block; /* Hiển thị hamburger trên mobile */
+    }
+
+    /* ẨN MENU CHÍNH TRÊN MOBILE (Ban đầu) */
+    .main-menu {
+        display: flex; /* Giữ flex để transition */
+        flex-direction: column; /* Xếp các mục menu dọc */
+        width: 100%; /* Chiếm toàn bộ chiều rộng */
+        position: absolute; /* Vị trí tuyệt đối để menu trượt xuống */
+        top: 100%; /* Bắt đầu từ dưới menu-bar */
+        left: 0;
+        background-color: #fff; /* Nền của menu khi hiện ra */
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        z-index: 90; /* Đảm bảo menu nằm trên nội dung khác */
+        padding-bottom: 10px;
+        max-height: 0; /* Mặc định ẩn bằng max-height */
+        overflow: hidden; /* Ẩn nội dung tràn */
+        opacity: 0;
+        transition: max-height 0.3s ease-out, opacity 0.3s ease-out; /* Hiệu ứng chuyển động */
+    }
+
+    /* MENU HIỂN THỊ KHI ĐƯỢC KÍCH HOẠT BỞI JS */
+    .main-menu.active {
+        max-height: 500px; /* Đặt giá trị đủ lớn khi active */
+        opacity: 1;
+        overflow: visible; /* Cho phép nội dung hiển thị */
+    }
+
+    /* ĐIỀU CHỈNH MENU BAR */
     .menu-bar {
-        flex-direction: column;
-        align-items: flex-start;
+        flex-direction: row; /* Giữ logo và cart trên cùng một hàng */
+        justify-content: space-between; /* Đẩy logo sang trái, cart sang phải */
+        align-items: center;
         padding: 15px 20px;
+        position: relative; /* Điều chỉnh lại vị trí tương đối */
     }
 
     .logo {
-        margin-bottom: 10px;
+        order: 0; /* Đảm bảo logo ở vị trí đầu tiên (bên trái) */
+        margin-right: auto; /* Đẩy logo sang trái, tạo không gian giữa logo và các icon */
+        padding: 0; /* Xóa padding đã thêm ở desktop nếu nó gây lệch */
     }
 
-    .main-menu {
-        flex-direction: column;
-        width: 100%;
-        gap: 0;
-    }
-
+    /* ĐIỀU CHỈNH CÁC MỤC MENU CHÍNH (LI) */
     .main-menu > li {
         width: 100%;
-        text-align: center;
+        text-align: left; /* Căn trái các mục menu chính */
         border-bottom: 1px solid #f0f0f0;
-        padding: 10px 0;
+        padding: 12px 20px; /* Thêm padding ngang */
+        position: relative;
     }
-
     .main-menu > li:last-child {
         border-bottom: none;
     }
 
+    /* ĐẢM BẢO CHỮ CÓ MÀU VÀ HIỂN THỊ ĐÚNG */
+    .main-menu > li > a {
+        font-weight: 500;
+        color: #333 !important; /* Đảm bảo màu chữ hiển thị, dùng !important để ưu tiên */
+        text-transform: uppercase;
+        display: block; /* Đảm bảo toàn bộ khu vực link có thể chạm được */
+        padding: 5px 0; /* Padding bên trong link */
+    }
+    .main-menu > li > a:hover {
+        color: #6e4e29 !important; /* Màu hover */
+    }
+
+    /* KIỂU TRÌNH BÀY DROPDOWN MỚI */
+    .dropdown {
+        position: relative;
+    }
+
+    /* Icon mũi tên cho dropdown */
+    .dropdown .dropbtn i { /* Áp dụng cho icon fa-chevron-down */
+        font-size: 0.8em;
+        margin-left: 8px;
+        vertical-align: middle;
+        transition: transform 0.3s ease;
+        display: inline-block;
+        position: absolute; /* Đặt vị trí tuyệt đối để căn phải */
+        right: 20px; /* Cách mép phải của li */
+        top: 50%; /* Canh giữa theo chiều dọc */
+        transform: translateY(-50%);
+    }
+
+    /* Xoay mũi tên khi dropdown mở */
+    .dropdown.active .dropbtn i {
+        transform: translateY(-50%) rotate(180deg); /* Xoay mũi tên lên */
+    }
+
+    /* Ẩn dropdown content theo mặc định */
     .dropdown-menu {
-        position: static; /* Make dropdown flow naturally */
-        box-shadow: none;
+        display: block; /* Giữ display: block để transition hoạt động */
+        position: static; /* Vẫn giữ static để chảy tự nhiên */
+        box-shadow: none; /* Loại bỏ bóng đổ */
         width: 100%;
-        padding: 5px 0;
-        background-color: #f9f9f9; /* Slightly different background for sub-menu */
+        padding: 0; /* Bắt đầu với padding 0 */
+        background-color: #f9f9f9;
+        border-top: 1px solid #eee;
+        
+        /* Hiệu ứng trượt - quan trọng */
+        max-height: 0;
+        overflow: hidden; /* Ẩn nội dung bị tràn */
+        transition: max-height 0.3s ease-out; /* Chỉ transition max-height */
+        opacity: 0; /* Bắt đầu với opacity 0 */
+        pointer-events: none; /* Ngăn chặn click khi ẩn */
+    }
+
+    /* Hiển thị dropdown content khi active */
+    .dropdown.active .dropdown-menu {
+        max-height: 500px; /* Một giá trị đủ lớn để chứa tất cả mục con */
+        padding: 5px 0; /* Padding khi hiển thị */
+        opacity: 1; /* Hiển thị hoàn toàn */
+        pointer-events: auto; /* Cho phép click khi hiển thị */
     }
 
     .dropdown-menu li {
-        padding: 5px 0; /* Adjust padding for nested items */
+        padding: 8px 20px; /* Padding ngang để thụt lề so so với mục cha */
+        text-align: left;
+        border-bottom: none; /* Không có border dưới cho các mục con */
     }
 
-    .cart-icon {
-        position: absolute;
-        top: 15px;
-        right: 20px;
-        margin-left: 0;
+    .dropdown-menu li a {
+        color: #555 !important;
+        padding: 5px 0;
+        display: block;
+    }
+    .dropdown-menu li a:hover {
+        color: #6e4e29 !important;
+        background-color: #f0f0f0;
     }
 
+    /* CART ICON VÀ HAMBURGER SẼ CÓ VỊ TRÍ ĐẶC BIỆT TRONG MENU-BAR */
+    .header-icons {
+        order: 1; /* Đặt nhóm icon sau logo */
+        margin-left: auto; /* Đẩy nhóm icon sang phải */
+        display: flex; /* Đảm bảo flex để căn chỉnh */
+        gap: 20px; /* Khoảng cách giữa các icon */
+    }
+
+    /* Loại bỏ thuộc tính position: absolute từ hamburger-menu và cart-icon */
+    .hamburger-menu, .cart-icon {
+        position: static;
+        top: auto;
+        right: auto;
+    }
+
+    /* ĐIỀU CHỈNH CÁC PHẦN KHÁC CỦA TRANG */
     .hero-section {
-        height: 400px;
+        height: 500px; /* Điều chỉnh chiều cao hero cho mobile */
     }
 
     .intro-title, .gallery-header .main-title, .minimal-products .collection-header h1, .contact-section h2 {
@@ -967,59 +1325,224 @@ button {
     .location-section {
         width: 100%;
         min-width: unset;
+        padding: 25px; /* Giảm nhẹ padding trên mobile */
     }
 
+    /* ĐÃ SỬA: Bố cục sản phẩm cho mobile (768px trở xuống) */
+    /* Product Types Gallery: 1 cột trên mobile */
+    .products-row {
+        display: flex; /* Chuyển sang flex để kiểm soát tốt hơn trên mobile */
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px; /* Giảm gap */
+        padding: 0 10px; /* Thêm padding ngang */
+    }
     .product-card {
-        padding: 25px;
+        flex: 1 1 100%; /* 1 cột trên mobile */
+        max-width: 100%;
     }
 
-    .product-detail-content {
-        padding: 25px;
+    /* Minimal Products Section: 2 cột trên mobile */
+    .product-container { /* Cho minimal-products và product-list-section */
+        display: flex; /* Chuyển sang flex để kiểm soát tốt hơn trên mobile */
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px; /* Giảm gap giữa các thẻ */
+        padding: 0 10px; /* Thêm padding ngang */
+    }
+    .product-card-mini {
+        flex: 1 1 calc(50% - 15px); /* 2 cột trên mobile (50% - gap) */
+        max-width: calc(50% - 15px);
     }
 
-    .cart-popup {
-        width: 95%;
-        padding: 15px;
+    /* ABOUT SECTION ON MOBILE (768px) */
+    .about-section {
+        padding: 40px 20px;
+        gap: 30px;
+    }
+    .about-image-wrapper {
+        width: 300px;
+        height: 300px;
+    }
+    .about-content h2 {
+        font-size: 2.5em;
+    }
+    .about-content p {
+        font-size: 1em;
+    }
+    .about-button {
+        padding: 12px 25px;
+        font-size: 1em;
+    }
+
+    /* IMAGE GALLERY ON MOBILE (768px) */
+    .image-gallery {
+        padding: 40px 0;
+    }
+    .image-gallery h2 {
+        font-size: 2.5em;
+    }
+    .gallery-grid {
+        grid-template-columns: 1fr; /* 1 cột trên mobile */
+        gap: 15px;
+        padding: 0 15px;
+    }
+    .gallery-item img {
+        height: 220px; /* Giảm chiều cao ảnh trên mobile */
+    }
+    .gallery-title {
+        font-size: 1.5em;
+    }
+    .gallery-description {
+        font-size: 0.9em;
+    }
+
+
+    .product-detail-content > div {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    #detailImage {
+        width: 250px !important;
+        height: 250px !important;
+    }
+
+    .add-to-cart-btn {
+        width: 80%; /* Nút thêm vào giỏ hàng rộng hơn */
+        max-width: none;
+    }
+
+    /* FORM CONTACT TRÊN MOBILE (768px trở xuống) */
+    .contact-form {
+        flex-direction: column; /* Đảm bảo form stack dọc trên mobile */
+        gap: 20px; /* Khoảng cách giữa các nhóm */
+        padding: 25px;
+        align-items: stretch; /* Đảm bảo các cột con giãn hết chiều rộng */
+    }
+    .form-left, .form-right {
+        min-width: unset;
+        width: 100%;
+        gap: 10px; /* Khoảng cách nhỏ hơn giữa các input/textarea */
+    }
+    .form-group.message-group textarea {
+        min-height: 100px; /* Giảm min-height của textarea trên mobile */
+    }
+
+    .submit-button {
+        align-self: center;
+        width: 80%;
+        max-width: 300px;
+        margin-top: 15px;
     }
 }
 
 @media (max-width: 480px) {
-    .menu-bar {
-        padding: 10px 15px;
-    }
-
-    .cart-icon {
-        right: 15px;
-    }
-
+    /* Các điều chỉnh đã có */
     .hero-section {
-        height: 300px;
+        height: 400px;
     }
 
     .introduction-section, .location-container, .gallery-container, .minimal-products, .contact-section {
-        padding: 40px 15px;
+        padding: 30px 15px; /* Giảm padding tổng thể */
     }
 
     .intro-title, .gallery-header .main-title, .minimal-products .collection-header h1, .contact-section h2 {
         font-size: 2em;
     }
 
-    .products-row, .product-container {
-        grid-template-columns: 1fr; /* Stack on very small screens */
-        gap: 20px;
+    /* Sản phẩm Product Types (Cabinet Hardware, v.v.) vẫn 1 cột */
+    .product-card {
+        padding: 15px; /* Giảm padding thẻ sản phẩm */
     }
 
+    /* Sản phẩm Minimal Products (Brubeck Chair, v.v.) vẫn 2 cột nhưng nhỏ hơn */
+    .product-card-mini {
+        flex: 1 1 calc(50% - 10px); /* 2 cột trên mobile nhỏ hơn (50% - gap) */
+        max-width: calc(50% - 10px);
+    }
+    .product-container {
+        gap: 10px; /* Giảm gap */
+    }
+
+    /* ABOUT SECTION ON SMALL MOBILE (480px) */
+    .about-section {
+        padding: 30px 15px;
+        gap: 20px;
+    }
+    .about-image-wrapper {
+        width: 250px;
+        height: 250px;
+    }
+    .about-content h2 {
+        font-size: 2em;
+        margin-bottom: 15px;
+    }
+    .about-content p {
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    .about-content ul li {
+        font-size: 0.9em;
+        margin-bottom: 8px;
+    }
+    .about-button {
+        padding: 10px 20px;
+        font-size: 0.9em;
+    }
+
+    /* IMAGE GALLERY ON SMALL MOBILE (480px) */
+    .image-gallery {
+        padding: 30px 0;
+    }
+    .image-gallery h2 {
+        font-size: 2em;
+        margin-bottom: 30px;
+    }
+    .gallery-grid {
+        gap: 10px;
+        padding: 0 10px;
+    }
+    .gallery-item img {
+        height: 180px; /* Giảm chiều cao ảnh trên màn hình rất nhỏ */
+    }
+    .gallery-title {
+        font-size: 1.2em;
+    }
+    .gallery-description {
+        font-size: 0.8em;
+    }
+
+
     .product-detail-content {
-        padding: 20px;
+        padding: 15px; /* Giảm padding popup chi tiết */
     }
 
     #detailImage {
-        width: 200px !important;
-        height: 200px !important;
+        width: 180px !important;
+        height: 180px !important;
+    }
+
+    #detailName {
+        font-size: 1.8em; /* Giảm font size tên sản phẩm */
+    }
+
+    #detailPrice {
+        font-size: 1.2em; /* Giảm font size giá */
     }
 
     .add-to-cart-btn {
-        padding: 10px 20px;
+        padding: 10px 15px;
+        font-size: 0.9em;
+    }
+
+    .contact-form {
+        padding: 20px;
+    }
+
+    .submit-button {
+        padding: 12px 25px;
         font-size: 1em;
     }
 
@@ -1029,5 +1552,20 @@ button {
         font-size: 1.5em;
         bottom: 20px;
         right: 20px;
+    }
+
+    /* Cart popup trên màn hình nhỏ hơn */
+    .cart-popup {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .cart-header h3 {
+        font-size: 1.2em;
+    }
+
+    .checkout-btn {
+        padding: 10px 20px;
+        font-size: 1em;
     }
 }
