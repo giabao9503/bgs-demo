@@ -5,62 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Neil's Foundry - Artisan Furniture</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500&display=swap">
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <link rel="stylesheet" href="main.css">
 </head>
 <body>
     <div class="cart-overlay-background" id="cartOverlayBackground"></div>
 
     <nav class="menu-bar">
-        <div class="logo" id="logo">NEIL'S FOUNDRY</div>
+        <a href="#" class="logo" id="logo">NEIL'S FOUNDRY</a> 
         
         <ul class="main-menu">
-            <li>
-                <a href="#">LIVING</a>
+            <li class="dropdown" data-type="living">
+                <a href="#" class="dropbtn">LIVING</a>
                 <ul class="dropdown-menu">
-                    <li><a href="#" data-type="living" data-subtype="sofas">Sofas</a></li>
-                    <li><a href="#" data-type="living" data-subtype="tables">Tables</a></li>
+                    <li><a href="#" data-subtype="sofas">Sofas</a></li>
+                    <li><a href="#" data-subtype="tables">Tables</a></li>
                 </ul>
             </li>
-            <li>
-                <a href="#">DINING</a>
+            <li class="dropdown" data-type="dining">
+                <a href="#" class="dropbtn">DINING</a>
                 <ul class="dropdown-menu">
-                    <li><a href="#" data-type="dining" data-subtype="tables">Tables</a></li>
-                    <li><a href="#" data-type="dining" data-subtype="chairs">Chairs</a></li>
+                    <li><a href="#" data-subtype="tables">Tables</a></li>
+                    <li><a href="#" data-subtype="chairs">Chairs</a></li>
                 </ul>
             </li>
-            <li>
-                <a href="#">BED</a>
+            <li class="dropdown" data-type="bed">
+                <a href="#" class="dropbtn">BED</a>
                 <ul class="dropdown-menu">
-                    <li><a href="#" data-type="bed" data-subtype="beds">Beds</a></li>
-                    <li><a href="#" data-type="bed" data-subtype="nightstands">Nightstands</a></li>
-                    <li><a href="#" data-type="bed" data-subtype="dressers">Dressers</a></li>
+                    <li><a href="#" data-subtype="beds">Beds</a></li>
+                    <li><a href="#" data-subtype="nightstands">Nightstands</a></li>
+                    <li><a href="#" data-subtype="dressers">Dressers</a></li>
                 </ul>
             </li>
-            <li>
-                <a href="#">BATH</a>
+            <li class="dropdown" data-type="bath">
+                <a href="#" class="dropbtn">BATH</a>
                 <ul class="dropdown-menu">
-                    <li><a href="#" data-type="bath" data-subtype="vanities">Vanities</a></li>
-                    <li><a href="#" data-type="bath" data-subtype="mirrors">Mirrors</a></li>
-                    <li><a href="#" data-type="bath" data-subtype="accessories">Accessories</a></li>
+                    <li><a href="#" data-subtype="vanities">Vanities</a></li>
+                    <li><a href="#" data-subtype="mirrors">Mirrors</a></li>
+                    <li><a href="#" data-subtype="accessories">Accessories</a></li>
                 </ul>
             </li>
-            <li>
-                <a href="#">DECOR</a>
+            <li class="dropdown" data-type="decor">
+                <a href="#" class="dropbtn">DECOR</a>
                 <ul class="dropdown-menu">
-                    <li><a href="#" data-type="decor" data-subtype="mirrors">Mirrors</a></li>
-                    <li><a href="#" data-type="decor" data-subtype="artwork">Artwork</a></li>
-                    <li><a href="#" data-type="decor" data-subtype="vases">Vases</a></li>
+                    <li><a href="#" data-subtype="mirrors">Mirrors</a></li>
+                    <li><a href="#" data-subtype="artwork">Artwork</a></li>
+                    <li><a href="#" data-subtype="vases">Vases</a></li>
                 </ul>
             </li>
-            <li>
-                <a href="#">CONTACT</a>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">CONTACT</a>
                 <ul class="dropdown-menu">
                     <li><a href="#">ZALO</a></li>
                     <li><a href="#">INSTAGRAM</a></li>
                 </ul>
             </li>
         </ul>
-        </nav>
+        <div class="cart-icon" id="cartIcon">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count" id="cartCount">0</span>
+        </div>
+    </nav>
+    <div class="hamburger-menu" id="hamburgerMenu">&#9776;</div> 
+
     <section class="hero-section" style="background-image:url('https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?ixlib=rb-4.0.3');"></section>
 
     <section class="introduction-section">
@@ -83,7 +89,7 @@
             <div class="address">
                 T8 Thuan Giao 02<br> 
                 Binh Thuan 02<br>
-                BINH DUONG<br>               
+                BINH DUONG<br>           
             </div>
         </div>
         
@@ -150,7 +156,7 @@
             <div class="product-container">
                 <div class="product-card-mini" onclick="showDetail('product1')">
                     <div class="product-image-mini" 
-                          style="background-image:url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=958&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
+                            style="background-image:url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=958&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
                     </div>
                     <div class="product-info">
                         <h3>BRUBECK CHAIR</h3>
@@ -159,7 +165,7 @@
                 </div>
                 <div class="product-card-mini" onclick="showDetail('product2')">
                     <div class="product-image-mini" 
-                          style="background-image:url('https://images.unsplash.com/photo-1592078615290-033ee584e267?q=80&w=464&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
+                            style="background-image:url('https://images.unsplash.com/photo-1592078615290-033ee584e267?q=80&w=464&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
                     </div>
                     <div class="product-info">
                         <h3>HENDRIX SOFA</h3>
@@ -168,7 +174,7 @@
                 </div>
                 <div class="product-card-mini" onclick="showDetail('product3')">
                     <div class="product-image-mini" 
-                          style="background-image:url('https://images.unsplash.com/photo-1683342952214-7a16488a2876?q=80&w=629&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
+                            style="background-image:url('https://images.unsplash.com/photo-1683342952214-7a16488a2876?q=80&w=629&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
                     </div>
                     <div class="product-info">
                         <h3>MONK TABLE</h3>
@@ -177,7 +183,7 @@
                 </div>
                 <div class="product-card-mini" onclick="showDetail('product4')">
                     <div class="product-image-mini" 
-                          style="background-image:url('https://images.unsplash.com/photo-1653971858341-865fca7c6d6e?q=80&w=1032&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
+                            style="background-image:url('https://images.unsplash.com/photo-1653971858341-865fca7c6d6e?q=80&w=1032&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
                     </div>
                     <div class="product-info">
                         <h3>EVANS SHELF</h3>
@@ -186,7 +192,7 @@
                 </div>
                 <div class="product-card-mini" onclick="showDetail('product5')">
                     <div class="product-image-mini" 
-                          style="background-image:url('https://images.unsplash.com/photo-1667322524638-d00577a6467a?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
+                            style="background-image:url('https://images.unsplash.com/photo-1667322524638-d00577a6467a?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
                     </div>
                     <div class="product-info">
                         <h3>COLTRANE BED</h3>
@@ -195,7 +201,7 @@
                 </div>
                 <div class="product-card-mini" onclick="showDetail('product6')">
                     <div class="product-image-mini" 
-                          style="background-image:url('https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
+                            style="background-image:url('https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
                     </div>
                     <div class="product-info">
                         <h3>MINGUS ARMCHAIR</h3>
@@ -223,7 +229,7 @@
                         <div class="quantity-controls">
                             <button type="button" class="quantity-btn decrease-qty">-</button>
                             <input id="quantityInput" type="number" min="1" max="99" value="1" 
-                                   oninput="this.value = Math.max(1, Math.min(99, parseInt(this.value) || 1))">
+                                        oninput="this.value = Math.max(1, Math.min(99, parseInt(this.value) || 1))">
                             <button type="button" class="quantity-btn increase-qty">+</button>
                         </div>
                     </div>
@@ -233,45 +239,44 @@
         </div>
     </div>
 
-    <section class="contact-section">
-        <h2>CONTACT US</h2>
-
-        <form class="contact-form">
-            <div class="form-left">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" placeholder="Your Name">
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="Your Email">
-                </div>
-                <div class="form-group">
-                    <label for="phone">Phone number</label>
-                    <input type="tel" id="phone" name="phone" placeholder="Your Phone Number">
-                </div>
+<section class="contact-section">
+    <h2>CONTACT US</h2>
+    <form class="contact-form">
+        <div class="form-left">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" placeholder="Your Name">
             </div>
-
-            <div class="form-right">
-                <div class="form-group message-group">
-                    <label for="messenger">Your messenger</label>
-                    <textarea id="messenger" name="messenger" rows="8" placeholder="Type your message here"></textarea>
-                </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="Your Email">
             </div>
-
-            <button type="submit" class="submit-button">SUBMIT</button>
-        </form>
-    </section>
+            <div class="form-group">
+                <label for="phone">Phone number</label>
+                <input type="tel" id="phone" placeholder="Your Phone Number">
+            </div>
+        </div>
+        <div class="form-right">
+            <div class="form-group message-group">
+                <label for="message">Your messenger</label>
+                <textarea id="message" placeholder="Type your message here"></textarea>
+            </div>
+            <div class="form-group submit-button-wrapper">
+                <button type="submit" class="submit-button">SUBMIT</button>
+            </div>
+        </div>
+    </form>
+</section>
     <div class="back-top" id="backTop">↑</div>
     <script defer src="main.js"></script>
     
     <div class="cart-popup" id="cartPopup">
         <div class="cart-header">
-            <h3>Shopping Cart (<span id="cartItemCount">0</span> items)</h3>
+            <h3>Shopping Cart (<span id="cartItemCount">0</span> items)</h3> 
             <button class="close-cart">&times;</button>
         </div>
         <div class="cart-items">
-            </div>
+        </div>
         <div class="cart-footer">
             <div class="cart-total">
                 Total: <span id="cartTotalPrice">$0.00 USD</span>
