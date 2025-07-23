@@ -145,6 +145,11 @@ function refreshCartPopup() {
     const cartFooter = document.querySelector('.cart-popup .cart-footer');
     const cartHeaderTitle = document.querySelector('.cart-header h3');
 
+    if (!cartItemsContainer) {
+        console.error("Cart items container not found.");
+        return;
+    }
+
     if (cart.length === 0) {
         cartItemsContainer.innerHTML = '<p class="empty-cart">Giỏ hàng của bạn đang trống</p>';
         if (cartFooter) cartFooter.style.display = 'none';
@@ -191,9 +196,9 @@ function showCartPopup() {
     const popup = document.getElementById('cartPopup');
     const overlay = document.getElementById('cartOverlayBackground');
     if (popup && overlay) {
-        popup.style.display = 'block'; // Hiển thị popup theo cách cũ của bạn
-        overlay.classList.add('visible'); // Hiển thị overlay
-        document.body.style.overflow = 'hidden'; // Prevent scrolling
+        popup.style.display = 'block';
+        overlay.classList.add('visible');
+        document.body.style.overflow = 'hidden';
         refreshCartPopup(); // Refresh content every time it opens
     }
 }
@@ -203,9 +208,9 @@ function closeCartPopup() {
     const popup = document.getElementById('cartPopup');
     const overlay = document.getElementById('cartOverlayBackground');
     if (popup && overlay) {
-        popup.style.display = 'none'; // Ẩn popup theo cách cũ của bạn
-        overlay.classList.remove('visible'); // Ẩn overlay
-        document.body.style.overflow = ''; // Restore scrolling
+        popup.style.display = 'none';
+        overlay.classList.remove('visible');
+        document.body.style.overflow = '';
     }
 }
 
@@ -250,34 +255,29 @@ function showDetail(productId) {
     document.getElementById('detailImage').style.backgroundImage = `url('${product.imageUrl}')`;
 
     const overlay = document.getElementById('productOverlay');
-    overlay.classList.add('open'); // Sử dụng class 'open' để kích hoạt CSS overlay.open
-    document.body.style.overflow = 'hidden'; // Ngăn cuộn nền
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
 
-    // Lắng nghe sự kiện click trên lớp phủ để đóng popup
-    // Kiểm tra và xóa event listener cũ nếu có để tránh trùng lặp
     if (overlay._overlayClickHandler) {
         overlay.removeEventListener('click', overlay._overlayClickHandler);
     }
     const newOverlayClickHandler = function(e) {
-        if (e.target === this) { // Chỉ đóng nếu click trực tiếp vào overlay
+        if (e.target === this) {
             closeDetail();
         }
     };
     overlay.addEventListener('click', newOverlayClickHandler);
-    overlay._overlayClickHandler = newOverlayClickHandler; // Lưu handler để xóa sau
+    overlay._overlayClickHandler = newOverlayClickHandler;
 
-    // Quantity input and buttons
     const qtyInput = document.getElementById('quantityInput');
-    qtyInput.value = "1"; // Reset quantity to 1 every time the detail opens
+    qtyInput.value = "1";
 
     const decreaseBtn = overlay.querySelector('.decrease-qty');
     const increaseBtn = overlay.querySelector('.increase-qty');
 
-    // Remove old listeners to prevent duplicates if popup reopens
     if (decreaseBtn && decreaseBtn._clickHandler) decreaseBtn.removeEventListener('click', decreaseBtn._clickHandler);
     if (increaseBtn && increaseBtn._clickHandler) increaseBtn.removeEventListener('click', increaseBtn._clickHandler);
     
-    // Add new listeners
     const newDecreaseHandler = () => {
         let currentVal = parseInt(qtyInput.value, 10);
         if (currentVal > 1) {
@@ -294,17 +294,13 @@ function showDetail(productId) {
     if (decreaseBtn) decreaseBtn.addEventListener('click', newDecreaseHandler);
     if (increaseBtn) increaseBtn.addEventListener('click', newIncreaseHandler);
 
-    // Store handlers to remove later
     if (decreaseBtn) decreaseBtn._clickHandler = newDecreaseHandler;
     if (increaseBtn) increaseBtn._clickHandler = newIncreaseHandler;
 
-    // Handle add to cart button click
     const addToCartBtn = overlay.querySelector('.add-to-cart-btn');
     
-    // Remove old listener to prevent duplicates
     if (addToCartBtn && addToCartBtn._clickHandler) addToCartBtn.removeEventListener('click', addToCartBtn._clickHandler);
 
-    // Add new listener
     const newAddToCartHandler = () => {
         const quantity = parseInt(qtyInput.value, 10);
         if (isNaN(quantity) || quantity < 1 || quantity > 99) {
@@ -316,17 +312,16 @@ function showDetail(productId) {
         closeDetail();
     };
     if (addToCartBtn) addToCartBtn.addEventListener('click', newAddToCartHandler);
-    if (addToCartBtn) addToCartBtn._clickHandler = newAddToCartHandler; // Store handler
+    if (addToCartBtn) addToCartBtn._clickHandler = newAddToCartHandler;
 }
 
 // Close product detail overlay
 function closeDetail() {
     const overlay = document.getElementById('productOverlay');
     if (overlay) {
-        overlay.classList.remove('open'); // Xóa class 'open'
+        overlay.classList.remove('open');
         document.body.style.overflow = '';
 
-        // Tùy chọn: Xóa event listener của overlay khi đóng để dọn dẹp bộ nhớ
         if (overlay._overlayClickHandler) {
             overlay.removeEventListener('click', overlay._overlayClickHandler);
             overlay._overlayClickHandler = null;
@@ -343,6 +338,11 @@ function showProductList(type, subType) {
     const title = document.getElementById('product-list-title');
     const desc = document.getElementById('product-list-desc');
 
+    if (!container || !title || !desc) {
+        console.error("Product list container, title, or description element not found.");
+        return;
+    }
+
     if (!productList || productList.length === 0) {
         container.innerHTML = `
             <div class="empty-message">
@@ -351,6 +351,7 @@ function showProductList(type, subType) {
         `;
     } else {
         container.innerHTML = productList.map(product => {
+            // Find the product key from the global products object to use with showDetail
             const key = Object.keys(products).find(k => products[k].name === product.name);
             return `
                 <div class="product-card-mini" onclick="showDetail('${key}')">
@@ -384,27 +385,64 @@ function showProductList(type, subType) {
 
 // Setup dropdown menu functionality
 function setupDropdownMenu() {
-    document.querySelectorAll('.dropdown-menu a').forEach(item => {
-        const type = item.getAttribute('data-type');
-        const subType = item.getAttribute('data-subtype');
+    const dropdowns = document.querySelectorAll('.dropdown');
 
-        if (type && subType) { // Only add listener if data attributes exist
-            item.addEventListener('click', function(e) {
-                e.preventDefault(); 
-                e.stopPropagation(); 
-                showProductList(type, subType);
-            });
-        } else {
-            item.addEventListener('click', function(e) {
-                if (this.textContent.trim() === "ZALO" || this.textContent.trim() === "INSTAGRAM") {
-                    e.preventDefault(); 
-                    showToast(`Mở liên kết ${this.textContent.trim()}... (Chức năng chưa được triển khai)`);
+    dropdowns.forEach(dropdown => {
+        const dropbtn = dropdown.querySelector('.dropbtn');
+        const dropdownContent = dropdown.querySelector('.dropdown-menu');
+
+        if (dropbtn && dropdownContent) {
+            // Logic for Desktop (hover)
+            dropdown.addEventListener('mouseenter', () => {
+                if (window.innerWidth > 768) {
+                    dropdownContent.style.display = 'block';
                 }
+            });
+
+            dropdown.addEventListener('mouseleave', () => {
+                if (window.innerWidth > 768) {
+                    dropdownContent.style.display = 'none';
+                }
+            });
+
+            // Logic for Mobile (click on dropbtn to toggle)
+            dropbtn.addEventListener('click', (event) => {
+                if (window.innerWidth <= 768) {
+                    event.preventDefault(); // Prevent default link behavior for mobile dropdown toggle
+                    dropdown.classList.toggle('active');
+                }
+            });
+
+            // Attach click event for child items in dropdown
+            dropdownContent.querySelectorAll('a').forEach(itemLink => {
+                itemLink.addEventListener('click', (event) => {
+                    event.preventDefault(); // PREVENT DEFAULT BEHAVIOR (scrolling to top)
+
+                    const parentType = dropdown.dataset.type; // Get type from parent dropdown's data-attribute
+                    const subType = itemLink.dataset.subtype; // Get subtype from child link's data-attribute
+
+                    if (parentType && subType) {
+                        showProductList(parentType, subType);
+                    } else {
+                        console.warn("Missing data-type or data-subtype for dropdown item:", itemLink);
+                    }
+
+                    // Close mobile menu after selecting an item
+                    if (window.innerWidth <= 768) {
+                        document.querySelector('.main-menu').classList.remove('active');
+                        document.body.style.overflow = '';
+                        dropdown.classList.remove('active'); // Close the specific dropdown
+                    }
+                    
+                    // Close dropdown on desktop after click
+                    if (window.innerWidth > 768) {
+                        dropdownContent.style.display = 'none';
+                    }
+                });
             });
         }
     });
 }
-
 
 // Setup back to top button functionality
 function setupBackToTop() {
@@ -421,20 +459,34 @@ function setupBackToTop() {
 
 // Setup cart icon and its functionality
 function setupCartIcon() {
-    const menuBar = document.querySelector('.menu-bar');
-    if (menuBar) {
-        const cartIconHTML = `
-            <div class="cart-icon" id="cartIcon">
+    // Attempt to find an existing cart icon container first
+    let cartIconContainer = document.getElementById('cartIcon'); 
+    
+    // If no existing container, create one and append it to the menu-bar
+    if (!cartIconContainer) {
+        const menuBar = document.querySelector('.menu-bar');
+        if (menuBar) {
+            cartIconContainer = document.createElement('div');
+            cartIconContainer.className = 'cart-icon';
+            cartIconContainer.id = 'cartIcon';
+            cartIconContainer.innerHTML = `
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6e4e29">
                     <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
                     <line x1="3" y1="6" x2="21" y2="6"></line>
                     <path d="M16 10a4 4 0 0 1-8 0"></path>
                 </svg>
                 <span class="cart-count" id="cartCount">0</span>
-            </div>
-        `;
-        menuBar.insertAdjacentHTML('beforeend', cartIconHTML);
-        document.getElementById('cartIcon').addEventListener('click', showCartPopup);
+            `;
+            menuBar.insertAdjacentElement('beforeend', cartIconContainer);
+        } else {
+            console.warn("Menu bar not found, cannot attach cart icon.");
+            return; // Exit if menuBar is not found
+        }
+    }
+
+    // Attach click event to the cart icon (whether it was existing or newly created)
+    if (cartIconContainer) {
+        cartIconContainer.addEventListener('click', showCartPopup);
 
         // Add event listener to close cart popup from the close button inside the popup
         const closeCartButton = document.querySelector('.cart-popup .close-cart');
@@ -460,21 +512,78 @@ function setupCartIcon() {
     }
 }
 
+// Setup hamburger menu functionality
+function setupHamburgerMenu() {
+    const hamburger = document.getElementById('hamburgerMenu');
+    const mainMenu = document.querySelector('.main-menu');
+
+    if (hamburger && mainMenu) {
+        hamburger.addEventListener('click', () => {
+            mainMenu.classList.toggle('active');
+            if (mainMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Close mobile menu when clicking on any link within it (excluding the dropdown parent links, handled by dropdown logic)
+        mainMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', (event) => {
+                const parentDropdown = link.closest('.dropdown');
+                if (!parentDropdown && mainMenu.classList.contains('active')) { // If not part of a dropdown and menu is active
+                   mainMenu.classList.remove('active');
+                   document.body.style.overflow = '';
+                }
+            });
+        });
+    } else {
+        console.warn("Hamburger menu or main menu element not found.");
+    }
+}
+
 // Initialize functions when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     setupDropdownMenu();
     setupBackToTop();
-    setupCartIcon(); 
+    setupCartIcon();
+    setupHamburgerMenu();
     loadCartFromLocalStorage();
 
     // Handle logo click to return to main product collection
-    document.getElementById('logo').addEventListener('click', () => {
+    document.getElementById('logo').addEventListener('click', (event) => {
+        event.preventDefault(); // Prevent default link behavior
         document.getElementById('product-list-section').style.display = 'none';
         document.querySelector('.minimal-products').style.display = 'block';
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 });
 
+
 // Expose necessary functions to the global scope if used in onclick attributes
 window.showDetail = showDetail;
 window.closeDetail = closeDetail;
+window.showProductList = showProductList; // Ensure this is accessible globally
+// Fix lỗi scroll bị vô hiệu hóa
+function enablePageScroll() {
+    document.body.style.overflow = 'auto';
+    document.documentElement.style.overflow = 'auto';
+}
+
+// Gọi hàm này khi cần khôi phục scroll
+document.addEventListener('click', function(e) {
+    // Nếu không phải là các phần tử form
+    if (!e.target.closest('input, select, textarea')) {
+        enablePageScroll();
+    }
+});
+
+// Sửa sự kiện cho overlay
+const overlay = document.getElementById('productOverlay');
+if (overlay) {
+    overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) {
+            enablePageScroll();
+        }
+    });
+}
