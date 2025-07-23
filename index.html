@@ -2,52 +2,54 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Neil's Foundry - Artisan Furniture</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500&display=swap">
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
-    <!-- Hero Section with Menu -->
+    <div class="cart-overlay-background" id="cartOverlayBackground"></div>
+
     <nav class="menu-bar">
         <div class="logo" id="logo">NEIL'S FOUNDRY</div>
+        
         <ul class="main-menu">
             <li>
                 <a href="#">LIVING</a>
                 <ul class="dropdown-menu">
-                    <li><a href="#">Sofas</a></li>
-                    <li><a href="#">Tables</a></li>
+                    <li><a href="#" data-type="living" data-subtype="sofas">Sofas</a></li>
+                    <li><a href="#" data-type="living" data-subtype="tables">Tables</a></li>
                 </ul>
             </li>
             <li>
                 <a href="#">DINING</a>
                 <ul class="dropdown-menu">
-                    <li><a href="#">Tables</a></li>
-                    <li><a href="#">Chairs</a></li>
+                    <li><a href="#" data-type="dining" data-subtype="tables">Tables</a></li>
+                    <li><a href="#" data-type="dining" data-subtype="chairs">Chairs</a></li>
                 </ul>
             </li>
             <li>
                 <a href="#">BED</a>
                 <ul class="dropdown-menu">
-                    <li><a href="#">Beds</a></li>
-                    <li><a href="#">Nightstands</a></li>
-                    <li><a href="#">Dressers</a></li>
+                    <li><a href="#" data-type="bed" data-subtype="beds">Beds</a></li>
+                    <li><a href="#" data-type="bed" data-subtype="nightstands">Nightstands</a></li>
+                    <li><a href="#" data-type="bed" data-subtype="dressers">Dressers</a></li>
                 </ul>
             </li>
             <li>
                 <a href="#">BATH</a>
                 <ul class="dropdown-menu">
-                    <li><a href="#">Vanities</a></li>
-                    <li><a href="#">Mirrors</a></li>
-                    <li><a href="#">Accessories</a></li>
+                    <li><a href="#" data-type="bath" data-subtype="vanities">Vanities</a></li>
+                    <li><a href="#" data-type="bath" data-subtype="mirrors">Mirrors</a></li>
+                    <li><a href="#" data-type="bath" data-subtype="accessories">Accessories</a></li>
                 </ul>
             </li>
             <li>
                 <a href="#">DECOR</a>
                 <ul class="dropdown-menu">
-                    <li><a href="#">Mirrors</a></li>
-                    <li><a href="#">Artwork</a></li>
-                    <li><a href="#">Vases</a></li>
+                    <li><a href="#" data-type="decor" data-subtype="mirrors">Mirrors</a></li>
+                    <li><a href="#" data-type="decor" data-subtype="artwork">Artwork</a></li>
+                    <li><a href="#" data-type="decor" data-subtype="vases">Vases</a></li>
                 </ul>
             </li>
             <li>
@@ -58,10 +60,9 @@
                 </ul>
             </li>
         </ul>
-    </nav>
-    <section class="hero-section"></section>
+        </nav>
+    <section class="hero-section" style="background-image:url('https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?ixlib=rb-4.0.3');"></section>
 
-    <!-- Introduction Section -->
     <section class="introduction-section">
         <div class="intro-content">
             <h1 class="intro-title">Furniture</h1>
@@ -76,14 +77,13 @@
         </div>
     </section>
 
-    <!-- Information Section -->
     <div class="location-container">
         <div class="location-section">
             <h2 class="section-title">LOCATION</h2>
             <div class="address">
                 T8 Thuan Giao 02<br> 
                 Binh Thuan 02<br>
-                BINH DUONG<br>                
+                BINH DUONG<br>               
             </div>
         </div>
         
@@ -105,7 +105,6 @@
         </div>
     </div>
 
-    <!-- Product Types Gallery -->
     <header class="gallery-header">
         <h1 class="main-title">Product Types</h1>
     </header>
@@ -131,7 +130,6 @@
                 </div>
             </div>
         </div>
-        <!-- Section hiển thị sản phẩm động, đặt sau các card tĩnh -->
         <section id="product-list-section" style="display: none;">
             <div class="collection-header">
                 <h1 id="product-list-title"></h1>
@@ -143,7 +141,6 @@
         </section>
     </main>
     
-    <!-- Products Collection -->
     <section class="minimal-products">
         <div class="collection-header">
             <h1>ARTISAN FURNITURE COLLECTIONS</h1>
@@ -151,60 +148,54 @@
         </div>
         <div class="container-parent">
             <div class="product-container">
-                <!-- Product 1 -->
                 <div class="product-card-mini" onclick="showDetail('product1')">
                     <div class="product-image-mini" 
-                         style="background-image:url('https://images.unsplash.com/photo-1592078615290-033ee584e267?q=80&w=464&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
+                          style="background-image:url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=958&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
                     </div>
                     <div class="product-info">
                         <h3>BRUBECK CHAIR</h3>
                         <p class="price">$285 USD</p>
                     </div>
                 </div>
-                <!-- Product 2 -->
                 <div class="product-card-mini" onclick="showDetail('product2')">
                     <div class="product-image-mini" 
-                         style="background-image:url('https://images.unsplash.com/photo-1667322524638-d00577a6467a?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
+                          style="background-image:url('https://images.unsplash.com/photo-1592078615290-033ee584e267?q=80&w=464&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
                     </div>
                     <div class="product-info">
                         <h3>HENDRIX SOFA</h3>
                         <p class="price">$320 USD</p>
                     </div>
                 </div>
-                <!-- Product 3 -->
                 <div class="product-card-mini" onclick="showDetail('product3')">
                     <div class="product-image-mini" 
-                         style="background-image:url('https://images.unsplash.com/photo-1683342952214-7a16488a2876?q=80&w=629&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
+                          style="background-image:url('https://images.unsplash.com/photo-1683342952214-7a16488a2876?q=80&w=629&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
                     </div>
                     <div class="product-info">
                         <h3>MONK TABLE</h3>
                         <p class="price">$450 USD</p>
                     </div>
                 </div>
-                <!-- Product 4 -->
                 <div class="product-card-mini" onclick="showDetail('product4')">
                     <div class="product-image-mini" 
-                         style="background-image:url('https://images.unsplash.com/photo-1653971858341-865fca7c6d6e?q=80&w=1032&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
+                          style="background-image:url('https://images.unsplash.com/photo-1653971858341-865fca7c6d6e?q=80&w=1032&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
                     </div>
                     <div class="product-info">
                         <h3>EVANS SHELF</h3>
                         <p class="price">$380 USD</p>
                     </div>
                 </div>
-                <!-- Product 5 -->
                 <div class="product-card-mini" onclick="showDetail('product5')">
                     <div class="product-image-mini" 
-                         style="background-image:url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=958&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
+                          style="background-image:url('https://images.unsplash.com/photo-1667322524638-d00577a6467a?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
                     </div>
                     <div class="product-info">
                         <h3>COLTRANE BED</h3>
                         <p class="price">$620 USD</p>
                     </div>
                 </div>
-                <!-- Product 6 -->
                 <div class="product-card-mini" onclick="showDetail('product6')">
                     <div class="product-image-mini" 
-                         style="background-image:url('https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
+                          style="background-image:url('https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
                     </div>
                     <div class="product-info">
                         <h3>MINGUS ARMCHAIR</h3>
@@ -215,53 +206,80 @@
         </div>
     </section>
 
-    <!-- Product Detail Overlay -->
-    <div id="productOverlay" class="product-overlay" style="display:none;">
-        <span class="close-btn" onclick="closeDetail()">&times;</span>
+    <div id="productOverlay">
         <div class="product-detail-content">
-            <div class="detail-image" id="detailImage"></div>
-            <div class="detail-info">
-                <h2 id="detailName">Product Name</h2>
-                <p class="detail-price" id="detailPrice">$0 USD</p>
-                <p class="detail-desc" id="detailDesc">Product description...</p>
-                <ul class="detail-specs" id="detailSpecs"></ul>
-                <button class="add-to-cart-btn">Add to Cart</button>
+            <button class="close-btn" onclick="closeDetail()">×</button>
+            
+            <div style="display: flex; gap: 30px; margin-bottom: 20px;">
+                <div id="detailImage" style="width: 300px; height: 300px; background-size: cover; background-position: center;"></div>
+                <div style="flex: 1;">
+                    <h2 id="detailName" style="margin-top: 0;"></h2>
+                    <p id="detailPrice"></p>
+                    <p id="detailDesc" style="margin: 20px 0;"></p>
+                    <ul id="detailSpecs"></ul>
+                    
+                    <div id="quantityWrapper">
+                        <label for="quantityInput">Số lượng:</label>
+                        <div class="quantity-controls">
+                            <button type="button" class="quantity-btn decrease-qty">-</button>
+                            <input id="quantityInput" type="number" min="1" max="99" value="1" 
+                                   oninput="this.value = Math.max(1, Math.min(99, parseInt(this.value) || 1))">
+                            <button type="button" class="quantity-btn increase-qty">+</button>
+                        </div>
+                    </div>
+                    <button class="add-to-cart-btn">Thêm vào giỏ hàng</button>
+                </div>
             </div>
         </div>
     </div>
-    
-    <!-- Contact Form -->
+
     <section class="contact-section">
-    <h2>CONTEACT US</h2>
+        <h2>CONTACT US</h2>
 
-    <form class="contact-form">
-        <div class="form-left">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" placeholder="Your Name">
+        <form class="contact-form">
+            <div class="form-left">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Your Name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Your Email">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone number</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Your Phone Number">
+                </div>
             </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Your Email">
-            </div>
-            <div class="form-group">
-                <label for="phone">Phone number</label>
-                <input type="tel" id="phone" name="phone" placeholder="Your Phone Number">
-            </div>
-        </div>
 
-        <div class="form-right">
-            <div class="form-group message-group">
-                <label for="messenger">Your messenger</label>
-                <textarea id="messenger" name="messenger" rows="8" placeholder="Type your message here"></textarea>
+            <div class="form-right">
+                <div class="form-group message-group">
+                    <label for="messenger">Your messenger</label>
+                    <textarea id="messenger" name="messenger" rows="8" placeholder="Type your message here"></textarea>
+                </div>
             </div>
-        </div>
 
-        <button type="submit" class="submit-button">SUBMIT</button>
-    </form>
-</section>
-    <!-- Back to Top Button -->
+            <button type="submit" class="submit-button">SUBMIT</button>
+        </form>
+    </section>
     <div class="back-top" id="backTop">↑</div>
     <script defer src="main.js"></script>
+    
+    <div class="cart-popup" id="cartPopup">
+        <div class="cart-header">
+            <h3>Shopping Cart (<span id="cartItemCount">0</span> items)</h3>
+            <button class="close-cart">&times;</button>
+        </div>
+        <div class="cart-items">
+            </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                Total: <span id="cartTotalPrice">$0.00 USD</span>
+            </div>
+            <button class="checkout-btn">Checkout</button>
+        </div>
+    </div>
+    
+    <div class="toast-message"></div>
 </body>
 </html>
